@@ -126,12 +126,6 @@
 		requestAnimationFrame(step);
 	};
 
-	window.onresize = function () {
-		return setTimeout(function () {
-			return location.reload();
-		}, 25);
-	};
-
 	init();
 
 /***/ },
