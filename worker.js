@@ -46,6 +46,8 @@
 
 	'use strict';
 
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 	var sin = Math.sin;
 	var cos = Math.cos;
 	var tan = Math.tan;
@@ -83,30 +85,31 @@
 		};
 	};
 
-	var transform = function transform(point) {
-		var x = config.width / 2 + point.x;
-		var y = config.height / 2 - point.y;
-		var newPoint = { x: x, y: y };
+	var transform = function transform(_ref) {
+		var x = _ref.x;
+		var y = _ref.y;
 
-		return newPoint;
+		x += config.width / 2;
+		y *= -1;
+		y += config.height / 2;
+
+		return { x: x, y: y };
 	};
 
-	var actions = {};
-
-	actions.setup = function (configData, done) {
-		config = configData;
+	var setup = function setup(configData, done) {
+		config = _extends({}, config, configData);
 		config.amplitude = 1 / 30 * (min(config.width + config.height) + max(config.width + config.height));
 
-		A = randomIn([5, 50]);
-		B = randomIn([5, 50]);
+		A = config.A || A || randomIn([5, 50]);
+		B = config.B || B || randomIn([5, 50]);
 
 		// intentionally left in
-		console.log(A, B);
+		console.log('Parameters: ' + A + ', ' + B);
 
-		done(configData);
+		done(config);
 	};
 
-	actions.step = function (params, done) {
+	var step = function step(params, done) {
 		var set = [];
 		var a = -max(A, B) * pi;
 		var b = -a;
@@ -118,13 +121,16 @@
 		i3 = 4 * i;
 
 		for (var t = a; t < b; t += dt) {
-			var point = { x: f(t), y: g(t) };
+			var x = f(t);
+			var y = g(t);
 
-			set[j++] = transform(point);
+			set[j++] = transform({ x: x, y: y });
 		}
 
 		done(set);
 	};
+
+	var actions = { setup: setup, step: step };
 
 	onmessage = function (event) {
 		var data = event.data;
