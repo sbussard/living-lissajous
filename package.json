@@ -10,12 +10,13 @@
   "scripts": {
     "prestart": "npm run compile",
     "start": "npm run dev",
-    "dev": "npm run serve && onchange '$npm_package_config_source' -- npm run compile",
+    "dev": "npm run watch && npm run serve & wait",
     "precompile": "mkdir -p $npm_package_config_dest",
-    "compile": "npm run compile:scripts & npm run compile:markup & wait",
+    "compile": "npm run compile:markup && npm run compile:scripts",
     "compile:markup": "cp $npm_package_config_source/*.html $npm_package_config_dest",
     "compile:scripts": "babel $npm_package_config_source -d $npm_package_config_dest",
-    "serve": "browser-sync start --serveStatic $npm_package_config_dest --files $npm_package_config_dest"
+    "serve": "browser-sync start --serveStatic $npm_package_config_dest --files $npm_package_config_dest",
+    "watch": "onchange './src/*' -- npm run compile &"
   },
   "keywords": [],
   "author": "",
