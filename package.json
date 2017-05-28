@@ -1,0 +1,30 @@
+{
+  "name": "living-lissajous-webgl",
+  "version": "1.0.0",
+  "description": "",
+  "main": "living-lissajous.js",
+  "config": {
+    "source": "src",
+    "dest": "build"
+  },
+  "scripts": {
+    "prestart": "npm run compile",
+    "start": "npm run dev",
+    "dev": "npm run watch && npm run serve & wait",
+    "precompile": "mkdir -p $npm_package_config_dest",
+    "compile": "npm run compile:markup && npm run compile:scripts",
+    "compile:markup": "cp $npm_package_config_source/*.html $npm_package_config_dest",
+    "compile:scripts": "babel $npm_package_config_source -d $npm_package_config_dest",
+    "serve": "browser-sync start --serveStatic $npm_package_config_dest --files $npm_package_config_dest",
+    "watch": "onchange './src/*' -- npm run compile &"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-cli": "^6.23.0",
+    "babel-preset-es2017": "^6.22.0",
+    "browser-sync": "^2.18.8",
+    "onchange": "^3.2.1"
+  }
+}
