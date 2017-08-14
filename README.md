@@ -1,4 +1,6 @@
 # Living Lissajous
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/sbussard/living-lissajous.svg)](https://greenkeeper.io/)
 A project to play around with complex animated lissajous figures
 
 ### Installation
