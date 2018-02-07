@@ -5,7 +5,7 @@ A project to play around with complex animated lissajous figures
 
     git clone git@github.com:sbussard/living-lissajous.git
     cd living-lissajous
-    npm install
+    yarn install
 
 ### Running
 

@@ -90,10 +90,11 @@ let animate = () => {
 
 let resetCamera = () => {
   aspect = window.innerWidth / window.innerHeight;
-  camera = new PerspectiveCamera(50, aspect, 1, 100);  
+  camera = new PerspectiveCamera(50, aspect, 1, 100);
 };
 
-document.body.appendChild(element);
 window.addEventListener('resize', resetCamera);
+
+document.body.appendChild(element);
 
 animate();

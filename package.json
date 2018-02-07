@@ -19,7 +19,8 @@
   "license": "ISC",
   "devDependencies": {
     "babel-cli": "^6.23.0",
-    "babel-preset-es2017": "^6.22.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
     "browser-sync": "^2.18.8",
     "onchange": "^3.2.1"
   }
