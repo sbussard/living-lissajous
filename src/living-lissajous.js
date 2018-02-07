@@ -30,8 +30,12 @@ let element = renderer.domElement;
 
 let toThreeVector = (coordinates) => new Vector3(...coordinates);
 
-let P = ceil(random() * 48);
-let Q = ceil(random() * 40);
+let P0 = ceil(random() * 9);
+let Q0 = ceil(random() * 5);
+let P1 = ceil(random() * 48);
+let Q1 = ceil(random() * 40);
+let P = P0;
+let Q = Q0;
 
 let getSet = (ms) => {
   let amplitude = 5;
@@ -87,14 +91,39 @@ let animate = () => {
   });
 };
 
-
 let resetCamera = () => {
   aspect = window.innerWidth / window.innerHeight;
   camera = new PerspectiveCamera(50, aspect, 1, 100);
 };
 
-window.addEventListener('resize', resetCamera);
+let isFlipped = false;
 
+let toggleFlip = () => {
+  if (isFlipped) {
+    unFlip();
+  } else {
+    flip();
+  }
+
+  isFlipped = !isFlipped;
+};
+
+let flip = () => {
+  material = new LineBasicMaterial({ color: 0xffffff });
+  document.body.classList.add('is-flipped');
+  P = P1;
+  Q = Q1;
+};
+
+let unFlip = () => {
+  material = new LineBasicMaterial({ color: 0x333333 });
+  document.body.classList.remove('is-flipped');
+  P = P0;
+  Q = Q0;
+};
+
+window.addEventListener('resize', resetCamera);
+document.addEventListener('keydown', toggleFlip);
 document.body.appendChild(element);
 
 animate();

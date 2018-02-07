@@ -3,17 +3,20 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
-  <title>living-lissajous</title>
+  <title>Stephen Bussard</title>
   <style>
     html, body {margin:0;padding:0;}
-    html {font-size:62.5%;}
-    body {font-family:sans-serif;font-size:1.4rem;}
+    html {font-size:62.5%;user-select:none;-ms-user-select:none;}
+    body {font-family:sans-serif;font-size:1.4rem;transition:ease transform 0.5s;overflow:hidden;}
     h1 {font-weight:300;line-height:1;text-align:center;padding-top:1em;color:#333;font-size:calc(2rem + 1vw);}
-    nav {text-align: center;}
-    a {color:#777;text-decoration: none;}
+    nav {text-align:center;}
+    a {color:#777;text-decoration:none;}
     a:hover {color:#000}
-    a:not(:last-child)::after {content: ' •';color:#AAA;}
+    a:not(:last-child)::after {content:' •';opacity:0.45;}
     canvas {position:absolute;top:0;left:0;bottom:0;right:0;z-index:-100;}
+    .is-flipped {background:#000;transform:rotateZ(90deg) translateX(25%) translateY(-200%);}
+    .is-flipped h1::after {content:' hacks';color:#fff;}
+    .is-flipped a:hover {color:#fff;}
   </style>
 </head>
 <body>
@@ -22,6 +25,7 @@
     <a href="https://www.github.com/sbussard" rel="noopener" target="_blank">Github</a>
     <a href="https://www.twitter.com/inversemetric" rel="noopener" target="_blank">Twitter</a>
     <a href="https://www.soundcloud.com/hyperfine" rel="noopener" target="_blank">SoundCloud</a>
+    <a href="https://www.linkedin.com/in/stephenbussard" rel="noopener" target="_blank">LinkedIn</a>
   </nav>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r72/three.min.js"></script>
   <script src="living-lissajous.js"></script>
