@@ -3,19 +3,15 @@
   "version": "1.0.0",
   "description": "",
   "main": "living-lissajous.js",
-  "config": {
-    "source": "src",
-    "dest": "build"
-  },
   "scripts": {
     "prestart": "npm run compile",
     "start": "npm run dev",
     "dev": "npm run watch && npm run serve & wait",
-    "precompile": "mkdir -p $npm_package_config_dest",
+    "precompile": "mkdir -p dist",
     "compile": "npm run compile:markup && npm run compile:scripts",
-    "compile:markup": "cp $npm_package_config_source/*.html $npm_package_config_dest",
-    "compile:scripts": "babel $npm_package_config_source -d $npm_package_config_dest",
-    "serve": "browser-sync start --serveStatic $npm_package_config_dest --files $npm_package_config_dest",
+    "compile:markup": "cp src/*.html dist",
+    "compile:scripts": "babel src -d dist",
+    "serve": "browser-sync start --serveStatic dist --files dist",
     "watch": "onchange './src/*' -- npm run compile &"
   },
   "keywords": [],

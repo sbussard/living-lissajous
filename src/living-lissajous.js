@@ -24,8 +24,9 @@ let {
 let scene = new Scene();
 let aspect = window.innerWidth / window.innerHeight;
 let camera = new PerspectiveCamera(50, aspect, 1, 100);
-let renderer = new WebGLRenderer({ antialias: true });
-let material = new LineBasicMaterial({ color: 0xffffff });
+let renderer = new WebGLRenderer({ antialias: true, alpha: true });
+let material = new LineBasicMaterial({ color: 0x333333 });
+let element = renderer.domElement;
 
 let toThreeVector = (coordinates) => new Vector3(...coordinates);
 
@@ -86,6 +87,13 @@ let animate = () => {
   });
 };
 
-document.body.appendChild(renderer.domElement);
+
+let resetCamera = () => {
+  aspect = window.innerWidth / window.innerHeight;
+  camera = new PerspectiveCamera(50, aspect, 1, 100);  
+};
+
+document.body.appendChild(element);
+window.addEventListener('resize', resetCamera);
 
 animate();

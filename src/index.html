@@ -5,11 +5,25 @@
   <meta name="viewport" content="width=device-width">
   <title>living-lissajous</title>
   <style>
-  html, body {margin: 0;padding: 0}
+    html, body {margin:0;padding:0;}
+    html {font-size:62.5%;}
+    body {font-family:sans-serif;font-size:1.4rem;}
+    h1 {font-weight:300;line-height:1;text-align:center;padding-top:1em;color:#333;font-size:calc(2rem + 1vw);}
+    nav {text-align: center;}
+    a {color:#777;text-decoration: none;}
+    a:hover {color:#000}
+    a:not(:last-child)::after {content: ' •';color:#AAA;}
+    canvas {position:absolute;top:0;left:0;bottom:0;right:0;z-index:-100;}
   </style>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r72/three.min.js"></script>
 </head>
 <body>
+  <h1>Stephen Bussard</h1>
+  <nav>
+    <a href="https://www.github.com/sbussard" rel="noopener" target="_blank">Github</a>
+    <a href="https://www.twitter.com/inversemetric" rel="noopener" target="_blank">Twitter</a>
+    <a href="https://www.soundcloud.com/hyperfine" rel="noopener" target="_blank">SoundCloud</a>
+  </nav>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r72/three.min.js"></script>
   <script src="living-lissajous.js"></script>
 </body>
 </html>
