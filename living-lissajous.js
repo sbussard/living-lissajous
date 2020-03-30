@@ -1,12 +1,4 @@
-let {
-  PI,
-  sin,
-  cos,
-  min,
-  max,
-  random,
-  ceil
-} = Math;
+let { PI, sin, cos, min, max, random, ceil } = Math;
 
 let {
   Scene,
@@ -21,71 +13,60 @@ let {
   Vector3
 } = THREE;
 
+let camera;
 let scene = new Scene();
-let aspect = window.innerWidth / window.innerHeight;
-let camera = new PerspectiveCamera(50, aspect, 1, 100);
 let renderer = new WebGLRenderer({ antialias: true });
-let material = new LineBasicMaterial({ color: 0xffffff });
-
-let toThreeVector = (coordinates) => new Vector3(...coordinates);
 
 let P = ceil(random() * 48);
 let Q = ceil(random() * 40);
 
-let getSet = (ms) => {
-  let amplitude = 5;
-  let resolution = 1200;
+let amplitude = 1;
+let resolution = 1200;
 
-	let a = -max(P, Q) * PI;
-	let b = -a;
-	let dt = (b - a) / (PI * resolution);
+let a = -max(P, Q) * PI;
+let b = -a;
+let dt = (b - a) / (PI * resolution);
 
-	let i = ms / 20000;
-	let i2 = -3 * i;
-	let i3 = 4 * i;
+let getFrame = (i, color) => {
+  const geometry = new Geometry();
+  let i2 = -3 * i;
+  let i3 = 4 * i;
 
-  let f = (t) => amplitude * (cos(t / P) * cos(t + i3) * 2 + sin(t + i2));
-  let g = (t) => amplitude * (sin(t / Q) * sin(t) * 2 - cos(t + i2));
-  let h = (t) => 0;
+  for (let t = a; t <= b + dt; t += dt) {
+    geometry.vertices.push(
+      new Vector3(
+        amplitude * (cos(t / P) * cos(t + i3) * 2 + sin(t + i2)),
+        amplitude * (sin(t / Q) * sin(t) * 2 - cos(t + i2)),
+        0
+      )
+    );
+  }
 
-  let set = [];
-
-	for (let t = a; t < b; t += dt) {
-		set.push([f(t), g(t), h(t)]);
-	}
-
-  return set;
-};
-
-let getFrame = ({ ms }) => {
-  let geometry = new Geometry();
-  geometry.vertices = getSet(ms).map(toThreeVector);
-  return new Line(geometry, material);
-};
-
-let renderFrame = (frame) => {
-  scene.add(frame);
-  renderer.render(scene, camera);
-};
-
-let clearFrame = (frame) => {
-  scene.remove(frame);
+  return new Line(geometry, new LineBasicMaterial({ color }));
 };
 
 let animate = () => {
-  let ms = (new Date()).getTime();
-  let frame = getFrame({ ms });
+  let i = new Date().getTime() / 20000;
+  let frame = getFrame(i, 0xffffff);
 
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  camera.position.z = 50;
-
-  renderFrame(frame);
+  scene.add(frame);
+  renderer.render(scene, camera);
   requestAnimationFrame(() => {
-    clearFrame(frame);
     animate(frame);
+    scene.remove(frame);
   });
 };
 
-document.body.appendChild(renderer.domElement);
+let setPositioning = () => {
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  let aspect = window.innerWidth / window.innerHeight;
+  camera = new PerspectiveCamera(10, aspect, 1, 100);
+  camera.position.z = 50;
+};
 
+setPositioning();
 animate();
+
+renderer.setSize(window.innerWidth, window.innerHeight);
+document.body.appendChild(renderer.domElement);
+window.addEventListener('resize', setPositioning);
