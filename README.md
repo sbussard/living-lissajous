@@ -2,6 +2,4 @@
 
 A project to play around with complex animated lissajous figures
 
-## View
-
-Just open `index.html` in your browser
+[Here's a demo](http://sbussard.github.io/living-lissajous)
