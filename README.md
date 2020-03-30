@@ -1,13 +1,7 @@
 # Living Lissajous
+
 A project to play around with complex animated lissajous figures
 
-### Installation
+## View
 
-    git clone git@github.com:sbussard/living-lissajous.git
-    cd living-lissajous
-    npm install
-
-### Running
-
-    npm start
-    open http://localhost:3000
+Just open `index.html` in your browser
